@@ -1,0 +1,32 @@
+// ==UserScript==
+// @name         yandex_Bot
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Bot!
+// @author       Gleb_Gudilin
+// @match        https://yandex.ru/*
+// @grant        none
+// ==/UserScript==
+
+let keywords = ["Авто", "Купить машину"];
+let text = document.getElementsByClassName("input__control input__input mini-suggest__input")[1];
+let links = document.links;
+let keyword = keywords[getRandom(0,keywords.length)];
+document.getElementsByClassName("button mini-suggest__button button_theme_search button_size_search i-bem button_js_inited")[0].value = keyword;
+
+if (text !== undefined) {
+    text.click();
+}else{
+    for (let i=0; i<links.length; i++) {
+        if (links[i].href.includes('auto.ru')){
+            let link = links[i];
+            link.click();
+            console.log("Нашел строку" + links[i]);
+            break;
+        }
+    }
+}
+function getRandom(min,max) {
+return Math.floor(Math.random()*(max-min)+min)
+}
+
